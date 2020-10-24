@@ -1,16 +1,13 @@
-import {
-    compareHashAndText,
-    jwtSignIn,
-    encryptString,
-    setRedisData,
-    getRedisData
-} from '../../core/helpers'
 import errHandler from '../../core/helpers/errHandler'
 import {
     STR_COMMON_DB_TENANT_ID
 } from '../../common/constants'
 export default function logInUserUseCaseFactory({
-    getUserDetailsDb
+    getUserDetailsDb,
+    setRedisData,
+    compareHashAndText,
+    jwtSignIn,
+    encryptString,
 }) {
     return async function logInUserUseCase({
         source,
@@ -36,7 +33,7 @@ export default function logInUserUseCaseFactory({
             })
             //strEncryptToken = await encryptString(strToken)
             //Set to Redis
-            await setRedisData(strToken, source["timReceived"])
+            await setRedisData(`login=>${strToken}=>${objUser["strName"]}=>${objUser["strEmail"]}=>${source["timReceived"]}`, source["timReceived"])
             await delete objUser["strHashPassword"];
         } else {
             throw new errHandler("CREDENTIAL_INVALID")

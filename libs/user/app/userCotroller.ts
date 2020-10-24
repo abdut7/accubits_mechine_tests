@@ -42,6 +42,27 @@ export function getListUserControllerFactory({
     }
 }
 
+export function getLoginUserListControllerFactory({
+    getLoginUserListUsecase
+}) {
+    return async function getLoginUserListController({
+        body: objUserBody,
+        ...source
+    }) {
+        try {
+                return {
+                    body: await getLoginUserListUsecase({
+                        source,
+                        body: objUserBody
+                    })
+                };
+        } catch (error) {
+            let objError = new errHandler(error);
+            return objError.send();
+        }
+    }
+}
+
 export function logInUserControllerFactory({
     logInUserUseCase
 }) {

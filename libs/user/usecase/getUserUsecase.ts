@@ -10,44 +10,17 @@ export default function getUserUsecaseFactory({
         body: objUserBodyData
     }) {
         try {
-            let objMatch = {
-                $and: []
-            }
-            objMatch["$and"].push({
-                "chrStatus": "N"
-            })
-            let arrQuery = []
-            arrQuery.push({
-                $match: objMatch
-            })
-            //Sorting
-            if (objUserBodyData["strSort"]) {
-                let objSort = {
-                    $sort: {
-                        [objUserBodyData["strSort"]]: objUserBodyData["strSortActive"] == "ASC" ? 1 : -1
-                    }
-                }
-                arrQuery.push(objSort)
-            }
-            //Pagination
-            let intSkip = Number(objUserBodyData["intPageNo"]) * Number((objUserBodyData["intLimit"] && objUserBodyData["intLimit"] != "") ? objUserBodyData["intLimit"] : 20)
-            let intLimit = (objUserBodyData["intLimit"] && objUserBodyData["intLimit"] != "") ? objUserBodyData["intLimit"] : 20
-            await arrQuery.push({
-                $limit: Number(intLimit),
-            })
-            await arrQuery.push({
-                $skip: intSkip || 0
-            })
             //Get user lists from DB
             let arrList = await getListDB({
                 strCollection: CLN_USER,
-                arrQuery
+                arrQuery: [{
+                    $match: {
+                        "chrStatus": "N"
+                    }
+                }]
             })
             return {
-                arrList,
-                intLimit,
-                intPageNo: objUserBodyData["intPageNo"] || 0,
-                ...objUserBodyData
+                arrList
             }
         } catch (error) {
             throw new errHandler(error)

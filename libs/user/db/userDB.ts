@@ -97,7 +97,7 @@ export function getUserDetailsDbFactory() {
             let objUser = {}
             objUser = await objConnection.collection(CLN_USER).findOne(objQuery)
             if (!objUser)
-                throw new errHandler("INVALID_USER_NAME")
+                throw new errHandler("INVALID_USER")
             return objUser
         } catch (error) {
             throw new errHandler(error)

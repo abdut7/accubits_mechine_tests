@@ -2,12 +2,14 @@ import {
     createUserControllerFactory,
     logInUserControllerFactory,
     getListUserControllerFactory,
+    getLoginUserListControllerFactory,
     deleteUserControllerFactory,
 } from './userCotroller'
 import {
     createUserUsecase,
     logInUserUseCase,
     getUserUsecase,
+    getLoginUserListUsecase,
     deleteUserUsecase
 } from '../usecase'
 let createUserController = createUserControllerFactory({
@@ -19,10 +21,16 @@ let logInUserController = logInUserControllerFactory({
 let deleteUserController = deleteUserControllerFactory({
     deleteUserUsecase
 })
-let getListUserController=getListUserControllerFactory({getUserUsecase})
+let getListUserController = getListUserControllerFactory({
+    getUserUsecase
+})
+let getLoginUserListController = getLoginUserListControllerFactory({
+    getLoginUserListUsecase
+})
 export {
     createUserController,
     logInUserController,
     getListUserController,
+    getLoginUserListController,
     deleteUserController
 }

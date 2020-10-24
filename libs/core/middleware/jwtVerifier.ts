@@ -1,13 +1,13 @@
 import {
     jwtVerify,
-    getRedisData,
     decryptString
 } from "../helpers";
+import {getRedisData} from '../../common/redis'
 import {
     STR_COMMON_DB_TENANT_ID
 } from '../../common/constants'
 import errHandler from "../helpers/errHandler";
-export async function jwtTokenChecking(req, res, next) {
+export async function jwtVerifier(req, res, next) {
     let objResponceType = {
         "Content-Type": "application/json",
         "Last-Modified":  new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' }))
