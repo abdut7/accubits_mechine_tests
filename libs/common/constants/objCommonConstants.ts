@@ -1,0 +1,2 @@
+export const STR_COMMON_DB_TENANT_ID = "ACCUBITS"
+export const STR_COMMON_DB = "ACCUBITS"

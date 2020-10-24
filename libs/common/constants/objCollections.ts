@@ -1,0 +1,1 @@
+export const CLN_USER = "cln_user"
